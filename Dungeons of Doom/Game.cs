@@ -122,8 +122,7 @@ namespace Dungeons_of_Doom
 
                 if (world[monsterX, monsterY].MonsterInRoom == null)
                 {
-                    int monsterType = createRand.Next(0, 10);
-                    world[monsterX, monsterY].MonsterInRoom = new Monster(monsterType, 30, 10);
+                    world[monsterX, monsterY].MonsterInRoom = new Monster("Monster", 30, 10);
                 }
             } while (k > 7);
 
