@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dungeons_of_Doom
 {
-    class Character : GameObject
+    abstract class Character : GameObject
     {
         public Character(string name, int health, int ad): base(name)
         {
@@ -16,5 +16,8 @@ namespace Dungeons_of_Doom
         
         public int Health { get; set; }
         public int AttackDamage { get; set; }
+
+        public abstract void Hit(Character opponent);
+        
     }
 }

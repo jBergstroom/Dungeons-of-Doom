@@ -9,6 +9,7 @@ namespace Dungeons_of_Doom
 {
     class Game
     {
+
         //Ska representera spelflödet
         const int WorldWidth = 20;
         const int WorldHeight = 10;
@@ -29,7 +30,7 @@ namespace Dungeons_of_Doom
 
                 DisplayWorld();
                 AskForMovement();
-                player.Health--;
+                //player.Health--;
 
             } while (player.Health > 0);
 
@@ -74,10 +75,13 @@ namespace Dungeons_of_Doom
             {
                 player.X = x;
                 player.Y = y;
+                world[player.X, player.Y].discovered = true;
 
-               
             }
+
         }
+
+
 
         private void foundItem()
         {
@@ -91,7 +95,7 @@ namespace Dungeons_of_Doom
                 world[player.X, player.Y].ItemInRoom = null;
                 player.AttackDamage += 20;
             }
-            
+
         }
 
         private void GameOver()
@@ -109,11 +113,12 @@ namespace Dungeons_of_Doom
                 for (int x = 0; x < WorldWidth; x++)
                 {
                     world[x, y] = new Room();
+                    world[x, y].discovered = false;
                 }
             }
             //Placerar ut ett monster i världen
             Random createRand = new Random();
-            int k = 0;
+            int m = 0;
             do
             {
                 int monsterX = createRand.Next(0, WorldWidth);
@@ -124,11 +129,12 @@ namespace Dungeons_of_Doom
                 {
                     world[monsterX, monsterY].MonsterInRoom = new Monster("Monster", 30, 10);
                 }
-            } while (k > 7);
+                m++;
+            } while (m < 3);
 
             //world[2, 2].MonsterInRoom = new Monster("Monster", 30, 10);
 
-            world[4, 4].ItemInRoom = new Item("Sword", 10);
+            world[4, 4].ItemInRoom = new weapons("Sword", 2, 10);
         }
 
         private void CreatePlayer()
@@ -142,20 +148,29 @@ namespace Dungeons_of_Doom
             {
                 for (int x = 0; x < WorldWidth; x++)
                 {
-                    
+
                     Room room = world[x, y];
-                    if (player.X == x && player.Y == y)
+                    if (room.discovered == true)
                     {
-                        Console.Write("|P|");
+                        if (player.X == x && player.Y == y)
+                        {
+                            world[player.X, player.Y].discovered = true;
+                            Console.Write($"|{player.Name.Substring(0, 1)}|");
+                        }
+                        else if (room.MonsterInRoom != null && room.MonsterInRoom.Health > 0)
+                        {
+                            Monster monster = room.MonsterInRoom;
+                            Console.Write($"|{monster.Name.Substring(0, 1)}|");
+                        }
+                        else if (room.ItemInRoom != null)
+                        { Item item = room.ItemInRoom; Console.Write("|I|"); }
+                        else { Console.Write("| |"); }
                     }
-                    else if (room.MonsterInRoom != null)
+                    else
                     {
-                        Monster monster = room.MonsterInRoom;
-                        Console.Write("|M|");
+                        Console.Write("| |");
                     }
-                    else if (room.ItemInRoom != null)
-                    { Item item = room.ItemInRoom; Console.Write("|I|"); }
-                    else { Console.Write("|o|"); }
+
                 }
                 Console.WriteLine();
             }
@@ -164,10 +179,10 @@ namespace Dungeons_of_Doom
 
         private void CheckRoomContent()
         {
-            if (world[player.X, player.Y].MonsterInRoom != null)
+            //world[player.X, player.Y].discovered = true;
+            if (world[player.X, player.Y].MonsterInRoom != null && world[player.X, player.Y].MonsterInRoom.Health > 0)
             {
-                MonsterEncounter();
-
+                Encounter();
             }
             else if (world[player.X, player.Y].ItemInRoom != null)
             {
@@ -175,46 +190,19 @@ namespace Dungeons_of_Doom
             }
         }
 
-        private void MonsterEncounter()
+        private void Encounter()
         {
-            Console.Clear();
-            Monster thisMonster = world[player.X, player.Y].MonsterInRoom;
-            Console.WriteLine($"You have encountered {world[player.X, player.Y].MonsterInRoom.Name}. BATTLE!");
-            Console.Beep(15000, 500);
-            Random rng = new Random();
-
             do
             {
-                Console.WriteLine("Press any key to attack the monster!");
-                Console.ReadKey();
-                int hitVal = rng.Next(1, 21);
-                if (hitVal > 10)
+                player.Hit(world[player.X, player.Y].MonsterInRoom);
+                if (world[player.X, player.Y].MonsterInRoom.Health > 0)
                 {
-                    int damage = rng.Next((player.AttackDamage/4), player.AttackDamage +1);
-                    Console.WriteLine($"You rolled {hitVal}! You strike the monster for {damage}!");
-                    thisMonster.Health -= damage;
-                    if (thisMonster.Health <= 0)
-                    {
-                        Console.WriteLine("You have killed the monster!");
-                        break;
-                    }
+                    world[player.X, player.Y].MonsterInRoom.Hit(player);
                 }
-                else
-                {
-                    Console.WriteLine($"You rolled {hitVal}. You miss!");
-                }
+                
 
-                int monsterHit = rng.Next(1, 101);
-                if (monsterHit > 70)
-                {
-                    int monsterdamage = rng.Next(thisMonster.AttackDamage / 2, thisMonster.AttackDamage);
-                    Console.WriteLine($"{thisMonster.Name} hits you back. {thisMonster.Name} hits you for {monsterdamage}");
-                    player.Health -= monsterdamage;
-                    
-                }
+            } while (player.Health > 0 && world[player.X, player.Y].MonsterInRoom.Health > 0);
 
-            } while (thisMonster.Health > 0 || player.Health > 0);
-            world[player.X, player.Y].MonsterInRoom = null;
         }
     }
 }
