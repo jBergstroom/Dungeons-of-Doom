@@ -284,11 +284,11 @@ namespace Dungeons_of_Doom
             {
                 Console.WriteLine("Press any key to attack the monster!");
                 Console.ReadKey();
-                player.Hit(world[player.X, player.Y].MonsterInRoom);
+                Console.WriteLine(player.Hit(world[player.X, player.Y].MonsterInRoom));
                 
                 if (world[player.X, player.Y].MonsterInRoom.Health > 0)
                 {
-                    world[player.X, player.Y].MonsterInRoom.Hit(player);
+                    Console.WriteLine(world[player.X, player.Y].MonsterInRoom.Hit(player));
                 }
                 else
                 {

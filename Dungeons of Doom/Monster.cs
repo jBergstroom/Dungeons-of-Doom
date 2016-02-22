@@ -14,19 +14,19 @@ namespace Dungeons_of_Doom
             monsterAmount++;
         }
 
-        public override void Hit(Character opponent)
+        public override string Hit(Character opponent)
         {
 
-            Random rng = new Random();
-            int monsterHit = rng.Next(1, 101);
+            
+            int monsterHit = RandomUtils.GetRandom(1, 101);
             if (monsterHit > 70)
             {
-                int monsterdamage = rng.Next(opponent.AttackDamage / 2, opponent.AttackDamage);
-                Console.WriteLine($"{this.Name} hits you back. {this.Name} hits you for {monsterdamage}");
+                int monsterdamage = RandomUtils.GetRandom(opponent.AttackDamage / 2, opponent.AttackDamage);
                 opponent.Health -= monsterdamage;
+                return $"{this.Name} hits you back. {this.Name} hits you for {monsterdamage}";
 
             }
-            else { Console.WriteLine($"You are lucky. {this.Name} missed!"); }
+            else { return $"You are lucky. {this.Name} missed!"; }
         }
     }
 }

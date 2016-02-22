@@ -17,29 +17,20 @@ namespace Dungeons_of_Doom
         public int Y { get; set; }
         public List<Item> BackPack { get; set; }
 
-        public override void Hit(Character opponent)
+        public override string Hit(Character opponent)
         {
-
-
-            Random rng = new Random(); ;
-
-            
-            int hitVal = rng.Next(1, 21);
+            int hitVal = RandomUtils.GetRandom(1, 21);
             if (hitVal > 10)
             {
-                int damage = rng.Next((this.AttackDamage / 4), this.AttackDamage + 1);
+                int damage = RandomUtils.GetRandom((this.AttackDamage / 4), this.AttackDamage + 1);
                 
-                Console.WriteLine($"You rolled {hitVal}! You strike the monster for {damage}!");
                 opponent.Health -= damage;
-                Console.WriteLine($" {opponent.Name} has {opponent.Health} HP left.");
+                return $"You rolled {hitVal}! You strike the monster for {damage}! {opponent.Name} has {opponent.Health} HP left.";
             }
             else
             {
-                Console.WriteLine($"You rolled {hitVal}. You miss!");
+                return $"You rolled {hitVal}. You miss!";
             }
-
-
-
         }
 
     }

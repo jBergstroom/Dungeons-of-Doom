@@ -13,14 +13,14 @@ namespace Dungeons_of_Doom
 
         }
 
-        public override void Hit(Character opponent)
+        public override string Hit(Character opponent)
         {
             if (opponent.AttackDamage >= this.AttackDamage*2)
             {
-                Console.WriteLine($"The gremlin dies of fear");
                 this.Health = 0;
+                return $"The gremlin dies of fear";
             }
-            else { base.Hit(opponent); }
+            else { return base.Hit(opponent); }
         }
     }
 }

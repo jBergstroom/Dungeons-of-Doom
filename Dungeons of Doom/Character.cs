@@ -17,7 +17,7 @@ namespace Dungeons_of_Doom
         public int Health { get; set; }
         public int AttackDamage { get; set; }
 
-        public abstract void Hit(Character opponent);
+        public abstract string Hit(Character opponent);
         
     }
 }
