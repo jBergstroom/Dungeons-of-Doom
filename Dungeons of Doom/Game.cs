@@ -191,13 +191,35 @@ namespace Dungeons_of_Doom
                 if (world[monsterX, monsterY].MonsterInRoom == null)
                 {
                     world[monsterX, monsterY].MonsterInRoom = new Monster("Monster", 30, 10);
-                }
                 m++;
+                }
             } while (m < difficulty);
+            int p = 0;
+            do
+            {
+                int itemX = createRand.Next(0, WorldWidth);
+                Thread.Sleep(20);
+                int itemY = createRand.Next(0, WorldHeight);
 
-            //world[0, 1].MonsterInRoom = new Monster("Monster", 30, 10);
+                if (world[itemX, itemY].ItemInRoom == null)
+                {
+                    world[itemX, itemY].ItemInRoom = new Potion("Healing potion", 1, 20);
+                }
+            } while (p < 4);
 
-            world[4, 4].ItemInRoom = new Weapon("Sword", 2, 10);
+            int w = 0;
+            do
+            {
+                int itemX = createRand.Next(0, WorldWidth);
+                Thread.Sleep(20);
+                int itemY = createRand.Next(0, WorldHeight);
+
+                if (world[itemX, itemY].ItemInRoom == null)
+                {
+                    world[itemX, itemY].ItemInRoom = new Weapon(5);
+                }
+            } while (w < 4);
+            
         }
 
         private void CreatePlayer()
@@ -261,6 +283,7 @@ namespace Dungeons_of_Doom
 
         private void Encounter()
         {
+
             Console.WriteLine($"You have encountered {world[player.X, player.Y].MonsterInRoom.Name}. BATTLE!");
             do
             {
