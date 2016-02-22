@@ -23,20 +23,15 @@ namespace Dungeons_of_Doom
 
             Random rng = new Random(); ;
 
-            Console.WriteLine("Press any key to attack the monster!");
-            Console.ReadKey();
+            
             int hitVal = rng.Next(1, 21);
             if (hitVal > 10)
             {
                 int damage = rng.Next((this.AttackDamage / 4), this.AttackDamage + 1);
+                
                 Console.WriteLine($"You rolled {hitVal}! You strike the monster for {damage}!");
                 opponent.Health -= damage;
                 Console.WriteLine($" {opponent.Name} has {opponent.Health} HP left.");
-                if (opponent.Health <= 0)
-                {
-                    Console.WriteLine($"{this.Name} have killed the {opponent.Name}!");
-
-                }
             }
             else
             {
