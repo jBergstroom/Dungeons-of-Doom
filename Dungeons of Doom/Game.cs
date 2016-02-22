@@ -37,7 +37,6 @@ namespace Dungeons_of_Doom
 
                     DisplayWorld();
                     AskForMovement();
-                    //player.Health--;
                     playingGame = HasWon(playingGame);
                 } while (playingGame);
 
@@ -79,6 +78,11 @@ namespace Dungeons_of_Doom
             for (int i = 0; i < intro.Length; i++)
             {
                 Console.WriteLine(intro[i]);
+
+                if (i%3 == 0)
+                {
+                    Thread.Sleep(200);
+                }
             }
             Console.ReadKey();
         }
@@ -179,14 +183,13 @@ namespace Dungeons_of_Doom
                     world[x, y].discovered = false;
                 }
             }
-            //Placerar ut ett monster i världen
-            Random createRand = new Random();
+            //Placerar ut items och monster
             int m = 0;
             do
             {
-                int monsterX = createRand.Next(0, WorldWidth);
+                int monsterX = RandomUtils.GetRandom(0, WorldWidth);
                 Thread.Sleep(20);
-                int monsterY = createRand.Next(0, WorldHeight);
+                int monsterY = RandomUtils.GetRandom(0, WorldHeight);
 
                 if (world[monsterX, monsterY].MonsterInRoom == null)
                 {
@@ -197,9 +200,9 @@ namespace Dungeons_of_Doom
             int p = 0;
             do
             {
-                int itemX = createRand.Next(0, WorldWidth);
+                int itemX = RandomUtils.GetRandom(0, WorldWidth);
                 Thread.Sleep(20);
-                int itemY = createRand.Next(0, WorldHeight);
+                int itemY = RandomUtils.GetRandom(0, WorldHeight);
 
                 if (world[itemX, itemY].ItemInRoom == null)
                 {
@@ -210,9 +213,9 @@ namespace Dungeons_of_Doom
             int w = 0;
             do
             {
-                int itemX = createRand.Next(0, WorldWidth);
+                int itemX = RandomUtils.GetRandom(0, WorldWidth);
                 Thread.Sleep(20);
-                int itemY = createRand.Next(0, WorldHeight);
+                int itemY = RandomUtils.GetRandom(0, WorldHeight);
 
                 if (world[itemX, itemY].ItemInRoom == null)
                 {
