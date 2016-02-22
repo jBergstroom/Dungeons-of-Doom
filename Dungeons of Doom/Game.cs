@@ -66,7 +66,7 @@ namespace Dungeons_of_Doom
 
                 if (i % 3 == 0)
                 {
-                    Thread.Sleep(200);
+                    Thread.Sleep(1); //temp 1 for debugg, original 200
                 }
             }
             Console.ReadKey();
@@ -91,7 +91,6 @@ namespace Dungeons_of_Doom
         {
             Console.WriteLine("Move!");
             ConsoleKeyInfo keyinfo = Console.ReadKey();
-
             int x = player.X;
             int y = player.Y;
 
@@ -104,12 +103,10 @@ namespace Dungeons_of_Doom
             }
 
 
-            if (x >= 0 && x < WorldWidth && y >= 0 && y < WorldHeight)
+            if (x >= 0 && x < WorldWidth && y >= 0 && y < WorldHeight && world[x,y].Wall == false)
             {
                 player.X = x;
                 player.Y = y;
-                world[player.X, player.Y].discovered = true;
-
             }
 
         }
@@ -158,7 +155,7 @@ namespace Dungeons_of_Doom
                             break;
                     }
                 } while (loop == true);
-                
+
             }
         }
 
@@ -171,9 +168,13 @@ namespace Dungeons_of_Doom
                 for (int x = 0; x < WorldWidth; x++)
                 {
                     world[x, y] = new Room();
-                    world[x, y].discovered = false;
+                    world[x, y].Discovered = false;
                 }
             }
+            //Skapa väggar
+            world[0, 7].Wall = true;
+            world[0, 8].Wall = true;
+            world[1, 8].Wall = true;
             //Placerar ut items och monster
             int m = 0;
             do
@@ -182,10 +183,10 @@ namespace Dungeons_of_Doom
                 Thread.Sleep(20);
                 int monsterY = RandomUtils.GetRandom(0, WorldHeight);
 
-                if (world[monsterX, monsterY].MonsterInRoom == null)
+                if (world[monsterX, monsterY].MonsterInRoom == null && world[monsterX, monsterY].Wall == false)
                 {
                     world[monsterX, monsterY].MonsterInRoom = new Monster("Ogre");
-                m++;
+                    m++;
                 }
             } while (m < difficulty);
             int p = 0;
@@ -195,10 +196,10 @@ namespace Dungeons_of_Doom
                 Thread.Sleep(20);
                 int itemY = RandomUtils.GetRandom(0, WorldHeight);
 
-                if (world[itemX, itemY].ItemInRoom == null)
+                if (world[itemX, itemY].ItemInRoom == null && world[itemX, itemY].Wall == false)
                 {
                     world[itemX, itemY].ItemInRoom = new Potion("Healing potion", 1, 20);
-                p++;
+                    p++;
                 }
             } while (p < 4);
 
@@ -209,10 +210,10 @@ namespace Dungeons_of_Doom
                 Thread.Sleep(20);
                 int itemY = RandomUtils.GetRandom(0, WorldHeight);
 
-                if (world[itemX, itemY].ItemInRoom == null)
+                if (world[itemX, itemY].ItemInRoom == null && world[itemX, itemY].Wall == false)
                 {
                     world[itemX, itemY].ItemInRoom = new Weapon(5);
-                w++;
+                    w++;
                 }
             } while (w < 4);
         }
@@ -224,47 +225,82 @@ namespace Dungeons_of_Doom
 
         private void DisplayWorld()
         {
-
-
+            PrintBoarder();
+            
             for (int y = 0; y < WorldHeight; y++)
             {
+                Console.BackgroundColor = ConsoleColor.Gray;
+                Console.Write("  ");
+                Console.BackgroundColor = ConsoleColor.Black;
+
                 for (int x = 0; x < WorldWidth; x++)
                 {
                     if (player.X == x && player.Y == y)
                     {
-                        Console.Write($"|{player.Name.Substring(0, 1)}|");
+                        Console.BackgroundColor = ConsoleColor.DarkYellow;
+                        Console.Write($" {player.Name.Substring(0, 1)}");
+                        Console.BackgroundColor = ConsoleColor.Black; ;
                     }
                     else
                     {
                         Room room = world[x, y];
-                        if (room.discovered == true)
+                        if (room.Wall == true)
+                        {
+                            Console.BackgroundColor = ConsoleColor.Gray;
+                            Console.Write("  ");
+                            Console.BackgroundColor = ConsoleColor.Black;
+                        }
+                        else if (room.Discovered == true)
                         {
                             if (room.MonsterInRoom != null && room.MonsterInRoom.Health > 0)
                             {
                                 Monster monster = room.MonsterInRoom;
-                                Console.Write($"|{monster.Name.Substring(0, 1)}|");
+                                Console.BackgroundColor = ConsoleColor.Yellow;
+                                Console.Write($" {monster.Name.Substring(0, 1)}");
+                                Console.BackgroundColor = ConsoleColor.Black;
                             }
                             else if (room.ItemInRoom != null)
-                            { Item item = room.ItemInRoom; Console.Write("|I|"); }
-                            else { Console.Write("|o|"); }
+                            {
+                                Item item = room.ItemInRoom;
+                                Console.BackgroundColor = ConsoleColor.Yellow;
+                                Console.Write(" I");
+                                Console.BackgroundColor = ConsoleColor.Black;
+                            }
+                            else {
+                                Console.BackgroundColor = ConsoleColor.DarkYellow;
+                                Console.Write("  ");
+                                Console.BackgroundColor = ConsoleColor.Black;
+                            }
                         }
-
                         else
                         {
-                            Console.Write("| |");
+                            Console.Write("  ");
                         }
                     }
                 }
+                Console.BackgroundColor = ConsoleColor.Gray;
+                Console.Write("  ");
+                Console.BackgroundColor = ConsoleColor.Black;
                 Console.WriteLine();
             }
+            PrintBoarder();
             CheckRoomContent();
+        }
 
-
+        private static void PrintBoarder()
+        {
+            for (int i = 0; i < WorldWidth + 2; i++)
+            {
+                Console.BackgroundColor = ConsoleColor.Gray;
+                Console.Write("  ");
+                Console.BackgroundColor = ConsoleColor.Black;
+            }
+            Console.WriteLine();
         }
 
         private void CheckRoomContent()
         {
-
+            world[player.X, player.Y].Discovered = true;
             //world[player.X, player.Y].discovered = true;
             if (world[player.X, player.Y].MonsterInRoom != null && world[player.X, player.Y].MonsterInRoom.Health > 0)
             {
@@ -285,7 +321,7 @@ namespace Dungeons_of_Doom
                 Console.WriteLine("Press any key to attack the monster!");
                 Console.ReadKey();
                 Console.WriteLine(player.Hit(world[player.X, player.Y].MonsterInRoom));
-                
+
                 if (world[player.X, player.Y].MonsterInRoom.Health > 0)
                 {
                     Console.WriteLine(world[player.X, player.Y].MonsterInRoom.Hit(player));

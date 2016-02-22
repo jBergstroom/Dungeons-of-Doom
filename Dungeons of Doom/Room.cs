@@ -11,6 +11,7 @@ namespace Dungeons_of_Doom
         public Monster MonsterInRoom { get; set; }
         public Item ItemInRoom { get; set; }
 
-        public bool discovered { get; set; }
+        public bool Discovered { get; set; }
+        public bool Wall { get; set; }
     }
 }
