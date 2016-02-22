@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Dungeons_of_Doom
 {
-    class weapon : Item
+    class Weapon : Item
     {
-        public weapon(string name, int weight, int damage): base (name, weight)
+        public Weapon(string name, int weight, int damage): base (name, weight)
         {
             AttackDamage = damage;
         }

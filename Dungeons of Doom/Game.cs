@@ -43,6 +43,9 @@ namespace Dungeons_of_Doom
 
             } while (endGame == false);
 
+
+
+
         }
 
         private bool HasWon(bool playingGame)
@@ -71,7 +74,7 @@ namespace Dungeons_of_Doom
 
         private void StartScreen()
         {
-            string[] intro = File.ReadAllLines("DungeonsOfDoomIntro.txt");
+            string[] intro = File.ReadAllLines(@"DungeonsOfDoomIntro.txt");
 
             for (int i = 0; i < intro.Length - 1; i++)
             {
@@ -194,7 +197,7 @@ namespace Dungeons_of_Doom
 
             //world[0, 1].MonsterInRoom = new Monster("Monster", 30, 10);
 
-            world[4, 4].ItemInRoom = new weapon("Sword", 2, 10);
+            world[4, 4].ItemInRoom = new Weapon("Sword", 2, 10);
         }
 
         private void CreatePlayer()
