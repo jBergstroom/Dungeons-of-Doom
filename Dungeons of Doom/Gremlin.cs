@@ -22,15 +22,13 @@ namespace Dungeons_of_Doom
             }
             else { return base.Hit(opponent); }
         }
-        int gremlinDamage()
+        void gremlinDamage()
         {
-            int dmg = 0;
-            return dmg = RandomUtils.GetRandom(1 * Game.difficulty, 3 * Game.difficulty);
+            AttackDamage = RandomUtils.GetRandom(1 * Game.difficulty, 3 * Game.difficulty);
         }
-        int GremlinHealth()
+        void GremlinHealth()
         {
-            int health = 0;
-            return health = RandomUtils.GetRandom(4 * Game.difficulty, 8 * Game.difficulty);
+            Health = RandomUtils.GetRandom(4 * Game.difficulty, 8 * Game.difficulty);
         }
         public override int Health
         {
@@ -41,7 +39,7 @@ namespace Dungeons_of_Doom
 
             set
             {
-                base.Health = GremlinHealth();
+                base.Health = value;
             }
         }
         public override int AttackDamage
@@ -53,7 +51,7 @@ namespace Dungeons_of_Doom
 
             set
             {
-                base.AttackDamage = gremlinDamage();
+                base.AttackDamage = value;
             }
         }
     }

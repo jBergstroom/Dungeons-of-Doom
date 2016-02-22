@@ -103,7 +103,7 @@ namespace Dungeons_of_Doom
             }
 
 
-            if (x >= 0 && x < WorldWidth && y >= 0 && y < WorldHeight && world[x,y].Wall == false)
+            if (x >= 0 && x < WorldWidth && y >= 0 && y < WorldHeight && world[x, y].Wall == false)
             {
                 player.X = x;
                 player.Y = y;
@@ -182,16 +182,23 @@ namespace Dungeons_of_Doom
                 int monsterX = RandomUtils.GetRandom(0, WorldWidth);
                 Thread.Sleep(20);
                 int monsterY = RandomUtils.GetRandom(0, WorldHeight);
-
-                if (world[monsterX, monsterY].MonsterInRoom == null && world[monsterX, monsterY].Wall == false)
+                if (m % 3 == 0 && world[monsterX, monsterY].MonsterInRoom == null && world[monsterX, monsterY].Wall == false)
                 {
-                    world[monsterX, monsterY].MonsterInRoom = new Monster("Ogre");
+                    world[monsterX, monsterY].MonsterInRoom = new Gremlin("Gremlin");
                     m++;
+                }
+                else
+                {
+                    if (world[monsterX, monsterY].MonsterInRoom == null && world[monsterX, monsterY].Wall == false)
+                    {
+                        world[monsterX, monsterY].MonsterInRoom = new Monster("Ogre");
+                        m++;
+                    }
                 }
             } while (m < difficulty);
             int p = 0;
             do
-            {
+            {//Potions
                 int itemX = RandomUtils.GetRandom(0, WorldWidth);
                 Thread.Sleep(20);
                 int itemY = RandomUtils.GetRandom(0, WorldHeight);
@@ -205,7 +212,7 @@ namespace Dungeons_of_Doom
 
             int w = 0;
             do
-            {
+            {//Vapen
                 int itemX = RandomUtils.GetRandom(0, WorldWidth);
                 Thread.Sleep(20);
                 int itemY = RandomUtils.GetRandom(0, WorldHeight);
@@ -226,7 +233,7 @@ namespace Dungeons_of_Doom
         private void DisplayWorld()
         {
             PrintBoarder();
-            
+
             for (int y = 0; y < WorldHeight; y++)
             {
                 Console.BackgroundColor = ConsoleColor.Gray;
