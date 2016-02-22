@@ -124,7 +124,7 @@ namespace Dungeons_of_Doom
 
 
 
-        private void foundItem()
+        private void FoundItem()
         {
             Console.WriteLine($"You have found an item. It's a {world[player.X, player.Y].ItemInRoom.Name}. Do you want to pick up? (Y/N)");
             ConsoleKeyInfo uInput = Console.ReadKey();
@@ -252,7 +252,7 @@ namespace Dungeons_of_Doom
             }
             else if (world[player.X, player.Y].ItemInRoom != null)
             {
-                foundItem();
+                FoundItem();
             }
         }
 
