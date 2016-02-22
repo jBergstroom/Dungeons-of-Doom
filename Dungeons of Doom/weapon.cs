@@ -8,9 +8,9 @@ namespace Dungeons_of_Doom
 {
     class Weapon : Item
     {
-        public Weapon(string name, int weight, int damage): base (name, weight)
+        public Weapon(int weight): base (SwordName(), weight)
         {
-            AttackDamage = damage;
+            AttackDamage = SwordDamage();
         }
 
         public int AttackDamage { get; set; }
@@ -18,6 +18,21 @@ namespace Dungeons_of_Doom
         public override void ModifyPlayer(Character player)
         {
             player.AttackDamage += 10;
+            
+        }
+
+        public static string SwordName()
+        {
+            Random rand = new Random();
+
+            string[] names = {"Ashbringer", "The Grandfather", "Smörkniv", "Tooth Pick", "Master Sword", "Wooden stick", "Triforce", "Buster Sword", "Lightsaber", "Deaths Bite"};
+
+            return names[rand.Next(0, 10)];
+        }
+        public static int SwordDamage()
+        {
+            Random rand = new Random();
+            return rand.Next(10, 31);
         }
     }
 }

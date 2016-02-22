@@ -37,7 +37,6 @@ namespace Dungeons_of_Doom
 
                     DisplayWorld();
                     AskForMovement();
-                    //player.Health--;
                     playingGame = HasWon(playingGame);
                 } while (playingGame);
 
@@ -76,9 +75,14 @@ namespace Dungeons_of_Doom
         {
             string[] intro = File.ReadAllLines("DungeonsOfDoomIntro.txt");
 
-            for (int i = 0; i < intro.Length - 1; i++)
+            for (int i = 0; i < intro.Length; i++)
             {
                 Console.WriteLine(intro[i]);
+
+                if (i%3 == 0)
+                {
+                    Thread.Sleep(200);
+                }
             }
             Console.ReadKey();
         }
@@ -127,7 +131,7 @@ namespace Dungeons_of_Doom
 
 
 
-        private void foundItem()
+        private void FoundItem()
         {
             Console.WriteLine($"You have found an item. It's a {world[player.X, player.Y].ItemInRoom.Name}. Do you want to pick up? (Y/N)");
             ConsoleKeyInfo uInput = Console.ReadKey();
@@ -179,25 +183,46 @@ namespace Dungeons_of_Doom
                     world[x, y].discovered = false;
                 }
             }
-            //Placerar ut ett monster i världen
-            Random createRand = new Random();
+            //Placerar ut items och monster
             int m = 0;
             do
             {
-                int monsterX = createRand.Next(0, WorldWidth);
+                int monsterX = RandomUtils.GetRandom(0, WorldWidth);
                 Thread.Sleep(20);
-                int monsterY = createRand.Next(0, WorldHeight);
+                int monsterY = RandomUtils.GetRandom(0, WorldHeight);
 
                 if (world[monsterX, monsterY].MonsterInRoom == null)
                 {
                     world[monsterX, monsterY].MonsterInRoom = new Monster("Monster", 30, 10);
-                }
                 m++;
+                }
             } while (m < difficulty);
+            int p = 0;
+            do
+            {
+                int itemX = RandomUtils.GetRandom(0, WorldWidth);
+                Thread.Sleep(20);
+                int itemY = RandomUtils.GetRandom(0, WorldHeight);
 
-            //world[0, 1].MonsterInRoom = new Monster("Monster", 30, 10);
+                if (world[itemX, itemY].ItemInRoom == null)
+                {
+                    world[itemX, itemY].ItemInRoom = new Potion("Healing potion", 1, 20);
+                }
+            } while (p < 4);
 
-            world[4, 4].ItemInRoom = new Weapon("Sword", 2, 10);
+            int w = 0;
+            do
+            {
+                int itemX = RandomUtils.GetRandom(0, WorldWidth);
+                Thread.Sleep(20);
+                int itemY = RandomUtils.GetRandom(0, WorldHeight);
+
+                if (world[itemX, itemY].ItemInRoom == null)
+                {
+                    world[itemX, itemY].ItemInRoom = new Weapon(5);
+                }
+            } while (w < 4);
+            
         }
 
         private void CreatePlayer()
@@ -255,12 +280,13 @@ namespace Dungeons_of_Doom
             }
             else if (world[player.X, player.Y].ItemInRoom != null)
             {
-                foundItem();
+                FoundItem();
             }
         }
 
         private void Encounter()
         {
+
             Console.WriteLine($"You have encountered {world[player.X, player.Y].MonsterInRoom.Name}. BATTLE!");
             do
             {
