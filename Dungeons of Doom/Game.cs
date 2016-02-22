@@ -74,7 +74,7 @@ namespace Dungeons_of_Doom
 
         private void StartScreen()
         {
-            string[] intro = File.ReadAllLines(@"DungeonsOfDoomIntro.txt");
+            string[] intro = File.ReadAllLines("DungeonsOfDoomIntro.txt");
 
             for (int i = 0; i < intro.Length - 1; i++)
             {
@@ -264,10 +264,17 @@ namespace Dungeons_of_Doom
             Console.WriteLine($"You have encountered {world[player.X, player.Y].MonsterInRoom.Name}. BATTLE!");
             do
             {
+                Console.WriteLine("Press any key to attack the monster!");
+                Console.ReadKey();
                 player.Hit(world[player.X, player.Y].MonsterInRoom);
+                
                 if (world[player.X, player.Y].MonsterInRoom.Health > 0)
                 {
                     world[player.X, player.Y].MonsterInRoom.Hit(player);
+                }
+                else
+                {
+                    Console.WriteLine($"You have killed the {world[player.X, player.Y].MonsterInRoom.Name}!");
                 }
 
 
