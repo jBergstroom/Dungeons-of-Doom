@@ -23,17 +23,15 @@ namespace Dungeons_of_Doom
         public void Start()
         {//efter att main har anropat denna så ska denna ta över
             StartScreen();
-
             CreatePlayer();
             do
             {
                 CreateWorld();
                 bool playingGame = true;
-
                 do
                 {
                     Console.Clear();
-                    DisaplayStats();
+                    DisplayStats();
 
                     DisplayWorld();
                     AskForMovement();
@@ -42,34 +40,21 @@ namespace Dungeons_of_Doom
                 } while (playingGame);
 
             } while (endGame == false);
-
-
-
-
         }
 
         private bool HasWon(bool playingGame)
         {
-            bool continueGame = false;
-            foreach (var item in world)
-            {
-                if (item.MonsterInRoom != null)
-                {
-                    continueGame = true; break;
-                }
-            }
             if (player.Health <= 0)
             {
                 GameOver("lost");
                 return false;
             }
-            else if (continueGame == false)
+            else if (Monster.monsterAmount <= 0)
             {
                 GameOver("won");
                 return false;
             }
             return true;
-
         }
 
         private void StartScreen()
@@ -83,7 +68,7 @@ namespace Dungeons_of_Doom
             Console.ReadKey();
         }
 
-        private void DisaplayStats()
+        private void DisplayStats()
         {
             Console.WriteLine($"Name: {player.Name}");
             Console.WriteLine($"Health: {player.Health}");
@@ -125,8 +110,6 @@ namespace Dungeons_of_Doom
 
         }
 
-
-
         private void FoundItem()
         {
             Console.WriteLine($"You have found an item. It's a {world[player.X, player.Y].ItemInRoom.Name}. Do you want to pick up? (Y/N)");
@@ -155,16 +138,24 @@ namespace Dungeons_of_Doom
             {
                 Console.Clear();
                 Console.WriteLine("Congratulations adventurer, you have vanquished all the monsters! Want to continue down? (Y/N)");
-                ConsoleKeyInfo winConInput = Console.ReadKey();
-
-                switch (winConInput.Key)
+                bool loop = true;
+                do
                 {
-                    case ConsoleKey.Y: difficulty++; break;
-                    case ConsoleKey.N: endGame = true; break;
-
-                }
+                    ConsoleKeyInfo winConInput = Console.ReadKey();
+                    switch (winConInput.Key)
+                    {
+                        case ConsoleKey.Y:
+                            difficulty++;
+                            loop = false;
+                            break;
+                        case ConsoleKey.N:
+                            endGame = true;
+                            loop = false;
+                            break;
+                    }
+                } while (loop == true);
+                
             }
-
         }
 
         private void CreateWorld()
@@ -205,6 +196,7 @@ namespace Dungeons_of_Doom
                 {
                     world[itemX, itemY].ItemInRoom = new Potion("Healing potion", 1, 20);
                 }
+                p++;
             } while (p < 4);
 
             int w = 0;
@@ -218,8 +210,8 @@ namespace Dungeons_of_Doom
                 {
                     world[itemX, itemY].ItemInRoom = new Weapon(5);
                 }
+                w++;
             } while (w < 4);
-            
         }
 
         private void CreatePlayer()
@@ -297,6 +289,7 @@ namespace Dungeons_of_Doom
             } while (player.Health > 0 && world[player.X, player.Y].MonsterInRoom.Health > 0);
 
             world[player.X, player.Y].MonsterInRoom = null;
+            Monster.monsterAmount--;
         }
     }
 }

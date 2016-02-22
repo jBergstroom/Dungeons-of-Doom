@@ -8,10 +8,10 @@ namespace Dungeons_of_Doom
 {
     class Monster : Character
     {
-        
+        public static int monsterAmount { get; set; }
         public Monster(string name, int health, int ad) : base(name, health, ad)
         {
-            
+            monsterAmount++;
         }
 
         public override void Hit(Character opponent)
