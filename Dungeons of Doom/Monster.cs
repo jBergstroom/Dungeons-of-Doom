@@ -9,15 +9,13 @@ namespace Dungeons_of_Doom
     class Monster : Character
     {
         public static int monsterAmount { get; set; }
-        public Monster(string name, int health, int ad) : base(name, health, ad)
+        public Monster(string name) : base(name, monsterHealth(), monsterDamage())
         {
             monsterAmount++;
         }
 
         public override string Hit(Character opponent)
-        {
-
-            
+        { 
             int monsterHit = RandomUtils.GetRandom(1, 101);
             if (monsterHit > 70)
             {
@@ -27,6 +25,16 @@ namespace Dungeons_of_Doom
 
             }
             else { return $"You are lucky. {this.Name} missed!"; }
+        }
+        static int monsterDamage()
+        {
+            int dmg = 0;
+            return dmg = RandomUtils.GetRandom(1 * Game.difficulty, 3 * Game.difficulty);
+        }
+        static int monsterHealth()
+        {
+            int health = 0;
+            return health = RandomUtils.GetRandom(8 * Game.difficulty, 15 * Game.difficulty);
         }
     }
 }

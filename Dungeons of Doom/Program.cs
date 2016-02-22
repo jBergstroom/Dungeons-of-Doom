@@ -10,7 +10,7 @@ namespace Dungeons_of_Doom
     {
         static void Main(string[] args)
         {
-            //Console.SetWindowSize(100, 56);
+            Console.SetWindowSize(100, 56);
             Game game = new Game();
             game.Start();
         }

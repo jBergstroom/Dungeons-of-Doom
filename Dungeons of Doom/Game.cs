@@ -14,7 +14,7 @@ namespace Dungeons_of_Doom
         //Ska representera spelflödet
         const int WorldWidth = 20;
         const int WorldHeight = 10;
-        public int difficulty = 3;
+        public static int difficulty = 3;
         Player player;
         public bool endGame = false;
 
@@ -64,7 +64,7 @@ namespace Dungeons_of_Doom
             {
                 Console.WriteLine(intro[i]);
 
-                if (i%3 == 0)
+                if (i % 3 == 0)
                 {
                     Thread.Sleep(200);
                 }
@@ -184,7 +184,7 @@ namespace Dungeons_of_Doom
 
                 if (world[monsterX, monsterY].MonsterInRoom == null)
                 {
-                    world[monsterX, monsterY].MonsterInRoom = new Monster("Monster", 30, 10);
+                    world[monsterX, monsterY].MonsterInRoom = new Monster("Ogre");
                 m++;
                 }
             } while (m < difficulty);
@@ -198,8 +198,8 @@ namespace Dungeons_of_Doom
                 if (world[itemX, itemY].ItemInRoom == null)
                 {
                     world[itemX, itemY].ItemInRoom = new Potion("Healing potion", 1, 20);
-                }
                 p++;
+                }
             } while (p < 4);
 
             int w = 0;
@@ -212,8 +212,8 @@ namespace Dungeons_of_Doom
                 if (world[itemX, itemY].ItemInRoom == null)
                 {
                     world[itemX, itemY].ItemInRoom = new Weapon(5);
-                }
                 w++;
+                }
             } while (w < 4);
         }
 

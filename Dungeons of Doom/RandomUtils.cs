@@ -11,7 +11,7 @@ namespace Dungeons_of_Doom
         public static int GetRandom(int lower, int upper)
         {
             Random rand = new Random();
-            int returnVal = rand.Next(lower, upper + 1);
+            int returnVal = rand.Next(lower, upper);
             return returnVal;
         }
     }
