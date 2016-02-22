@@ -11,7 +11,7 @@ namespace Dungeons_of_Doom
         
         public Monster(string name, int health, int ad) : base(name, health, ad)
         {
-
+            
         }
 
         public override void Hit(Character opponent)

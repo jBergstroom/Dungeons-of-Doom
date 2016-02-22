@@ -18,6 +18,7 @@ namespace Dungeons_of_Doom
         public override void ModifyPlayer(Character player)
         {
             player.AttackDamage += 10;
+            
         }
     }
 }
