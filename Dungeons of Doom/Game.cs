@@ -43,9 +43,6 @@ namespace Dungeons_of_Doom
 
             } while (endGame == false);
 
-
-
-
         }
 
         private bool HasWon(bool playingGame)
@@ -74,7 +71,7 @@ namespace Dungeons_of_Doom
 
         private void StartScreen()
         {
-            string[] intro = File.ReadAllLines(@"C:\Users\Administrator\documents\visual studio 2015\Projects\Dungeons of Doom\Dungeons of Doom\EssentialGameFiles\DungeonsOfDoomIntro.txt");
+            string[] intro = File.ReadAllLines("DungeonsOfDoomIntro.txt");
 
             for (int i = 0; i < intro.Length - 1; i++)
             {
