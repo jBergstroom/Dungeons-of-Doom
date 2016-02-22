@@ -197,7 +197,7 @@ namespace Dungeons_of_Doom
 
             //world[0, 1].MonsterInRoom = new Monster("Monster", 30, 10);
 
-            world[4, 4].ItemInRoom = new weapon("Sword", 2, 10);
+            world[4, 4].ItemInRoom = new Weapon("Sword", 2, 10);
         }
 
         private void CreatePlayer()
