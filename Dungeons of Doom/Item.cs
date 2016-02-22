@@ -15,5 +15,7 @@ namespace Dungeons_of_Doom
         {
             Weight = weight;
         }
+
+        public abstract void ModifyPlayer(Character player);
     }
 }

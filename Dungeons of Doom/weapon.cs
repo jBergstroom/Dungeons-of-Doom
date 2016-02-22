@@ -6,13 +6,18 @@ using System.Threading.Tasks;
 
 namespace Dungeons_of_Doom
 {
-    class weapons : Item
+    class weapon : Item
     {
-        public weapons(string name, int weight, int damage): base (name, weight)
+        public weapon(string name, int weight, int damage): base (name, weight)
         {
             AttackDamage = damage;
         }
 
         public int AttackDamage { get; set; }
+
+        public override void ModifyPlayer(Character player)
+        {
+            player.AttackDamage += 10;
+        }
     }
 }

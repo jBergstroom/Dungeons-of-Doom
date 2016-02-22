@@ -13,5 +13,10 @@ namespace Dungeons_of_Doom
             Heal = heal;
         }
         public int Heal { get; set; }
+
+        public override void ModifyPlayer(Character player)
+        {
+            player.Health += 20;
+        }
     }
 }
