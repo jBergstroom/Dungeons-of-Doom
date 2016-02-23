@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Utils;
 
-namespace Dungeons_of_Doom
+namespace Core
 {
     class Gremlin : Monster, ILuggable
     {

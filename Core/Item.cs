@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dungeons_of_Doom
+namespace Core
 {
     abstract class Item : GameObject, ILuggable
     {
