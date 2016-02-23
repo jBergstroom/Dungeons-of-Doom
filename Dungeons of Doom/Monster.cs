@@ -36,5 +36,10 @@ namespace Dungeons_of_Doom
             int health = 0;
             return health = RandomUtils.GetRandom(8 * Game.difficulty, 15 * Game.difficulty);
         }
+
+        public void PickUp(Player player)
+        {
+            player.BackPack.Add(this);
+        }
     }
 }

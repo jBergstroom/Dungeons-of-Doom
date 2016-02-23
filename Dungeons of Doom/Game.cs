@@ -23,6 +23,7 @@ namespace Dungeons_of_Doom
         public void Start()
         {//efter att main har anropat denna så ska denna ta över
             StartScreen();
+            Console.ForegroundColor = ConsoleColor.Red;
             CreatePlayer();
             do
             {
@@ -90,22 +91,55 @@ namespace Dungeons_of_Doom
             {
                 return ConsoleColor.DarkGreen;
             }
-            else 
+            else if (i > 13 && i < 18)
+            {
                 return ConsoleColor.DarkRed;
+            }
+            else if (i > 17 && i < 22)
+            {
+                return ConsoleColor.Red;
+            }
+            else if (i > 21 && i < 31)
+            {
+                return ConsoleColor.DarkYellow;
+            }
+            else if (i > 30 && i < 34)
+            {
+                return ConsoleColor.Magenta;
+            }
+            else if (i > 33 && i < 36)
+            {
+                return ConsoleColor.DarkMagenta;
+            }
+            else if (i > 35 && i < 38)
+            {
+                return ConsoleColor.DarkCyan;
+            }
+            else if (i > 37 && i < 40)
+            {
+                return ConsoleColor.Cyan;
+            }
+            else 
+                return ConsoleColor.White;
         }
 
         private void DisplayStats()
         {
+            Console.WriteLine($"LEVEL: {difficulty-2}");
             Console.WriteLine($"Name: {player.Name}");
             Console.WriteLine($"Health: {player.Health}");
             Console.WriteLine($"Attack Damage: {player.AttackDamage}");
 
             Console.WriteLine($"Position: {player.X},{player.Y}");
             Console.WriteLine("Backpack content:");
+            int totalWeight = 0;
             foreach (ILuggable item in player.BackPack)
             {
                 Console.Write($"{item.Name}({item.Weight} kg), ");
+                totalWeight += item.Weight;
             }
+            Console.WriteLine();
+            Console.WriteLine("Total weight: " + totalWeight);
             Console.WriteLine();
         }
 
@@ -142,9 +176,8 @@ namespace Dungeons_of_Doom
             ConsoleKeyInfo uInput = Console.ReadKey();
                 if (uInput.Key == ConsoleKey.Y)
                 {
-                    player.BackPack.Add(world[player.X, player.Y].ItemInRoom);
                     Console.WriteLine($"You have picket up {world[player.X, player.Y].ItemInRoom.Name}");
-                    world[player.X, player.Y].ItemInRoom.ModifyPlayer(player);
+                    world[player.X, player.Y].ItemInRoom.PickUp(player);
                     world[player.X, player.Y].ItemInRoom = null;
                     break;
                 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dungeons_of_Doom
 {
-    class Gremlin : Monster
+    class Gremlin : Monster, ILuggable
     {
         public Gremlin(string name, int weight) : base(name, weight)
         {
@@ -22,7 +22,7 @@ namespace Dungeons_of_Doom
             }
             else { return base.Hit(opponent); }
         }
-        void gremlinDamage()
+        void GremlinDamage()
         {
             AttackDamage = RandomUtils.GetRandom(1 * Game.difficulty, 3 * Game.difficulty);
         }

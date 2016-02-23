@@ -10,6 +10,7 @@ namespace Dungeons_of_Doom
     {
         int Weight { get; set; }
         string Name { get; set; }
-        //void PickUp();
+        void PickUp(Player player);
+        
     }
 }
