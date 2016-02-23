@@ -15,10 +15,10 @@ namespace Dungeons_of_Doom
 
         public int AttackDamage { get; set; }
 
-        public override void ModifyPlayer(Character player)
+        public override void PickUp(Player player)
         {
             player.AttackDamage += 10;
-            
+            base.PickUp(player);
         }
 
         public static string SwordName()

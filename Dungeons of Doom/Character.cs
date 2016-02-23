@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dungeons_of_Doom
 {
-    abstract class Character : GameObject, ILuggable
+    abstract class Character : GameObject
     {
         public Character(string name, int health, int ad, int weight): base(name)
         {

@@ -16,6 +16,11 @@ namespace Dungeons_of_Doom
             Weight = weight;
         }
 
-        public abstract void ModifyPlayer(Character player);
+        //public abstract void ModifyPlayer(Character player);
+
+        public virtual void PickUp(Player player)
+        {
+            player.BackPack.Add(this);
+        }
     }
 }

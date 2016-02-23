@@ -141,9 +141,8 @@ namespace Dungeons_of_Doom
             ConsoleKeyInfo uInput = Console.ReadKey();
                 if (uInput.Key == ConsoleKey.Y)
                 {
-                    player.BackPack.Add(world[player.X, player.Y].ItemInRoom);
                     Console.WriteLine($"You have picket up {world[player.X, player.Y].ItemInRoom.Name}");
-                    world[player.X, player.Y].ItemInRoom.ModifyPlayer(player);
+                    world[player.X, player.Y].ItemInRoom.PickUp(player);
                     world[player.X, player.Y].ItemInRoom = null;
                     break;
                 }
