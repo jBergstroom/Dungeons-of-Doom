@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Core
 {
-    abstract class GameObject
+    internal abstract class GameObject
     {
         public GameObject(string name)
         {

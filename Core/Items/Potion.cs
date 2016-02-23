@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Core
 {
-    class Potion : Item
+    internal class Potion : Item
     {
         public Potion(string name, int weight, int heal) : base(name, weight)
         {
