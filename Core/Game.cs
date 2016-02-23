@@ -167,6 +167,7 @@ namespace Core
                 player.Y = y;
             }
 
+            
         }
 
         private void FoundItem()//lägg i modifyplayer, override att vi inte ska lägga till potions i backpacken
