@@ -404,12 +404,19 @@ namespace Core
                 else
                 {
                     Console.WriteLine($"You have killed the {world[player.X, player.Y].MonsterInRoom.Name}!");
-                    player.BackPack.Add(world[player.X, player.Y].MonsterInRoom);
                 }
             } while (player.Health > 0 && world[player.X, player.Y].MonsterInRoom.Health > 0);
 
-            world[player.X, player.Y].MonsterInRoom = null;
-            Monster.monsterAmount--;
+            if (player.Health > 0)
+            {
+                player.BackPack.Add(world[player.X, player.Y].MonsterInRoom);
+                world[player.X, player.Y].MonsterInRoom = null;
+                Monster.monsterAmount--;
+            }
+            else
+            {
+                GameOver("lost");
+            }
         }
     }
 }
