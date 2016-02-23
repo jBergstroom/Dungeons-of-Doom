@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Core
 {
-    abstract class Character : GameObject
+    internal abstract class Character : GameObject
     {
         public Character(string name, int health, int ad, int weight): base(name)
         {

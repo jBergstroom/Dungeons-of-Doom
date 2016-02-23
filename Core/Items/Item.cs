@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Core
 {
-    abstract class Item : GameObject, ILuggable
+    internal abstract class Item : GameObject, ILuggable
     {
 
         public int Weight { get; set; }

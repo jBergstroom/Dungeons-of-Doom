@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Core
 {
-    interface ILuggable
+    internal interface ILuggable
     {
         int Weight { get; set; }
         string Name { get; set; }

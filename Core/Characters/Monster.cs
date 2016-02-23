@@ -8,7 +8,7 @@ using Utils;
 
 namespace Core
 {
-    class Monster : Character, ILuggable
+    internal class Monster : Character, ILuggable
     {
         public static int monsterAmount { get; set; }
         public Monster(string name, int weight) : base(name, monsterHealth(), monsterDamage(), weight)

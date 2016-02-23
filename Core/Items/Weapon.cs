@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Core
 {
-    class Weapon : Item
+    internal class Weapon : Item
     {
         public Weapon(int weight): base (SwordName(), weight)
         {

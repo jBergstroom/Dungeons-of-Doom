@@ -7,7 +7,7 @@ using Utils;
 
 namespace Core
 {
-    sealed class Player : Character
+    internal sealed class Player : Character
     {
         public Player(string name, int health, int ad, int weight) : base(name, health, ad, weight)
         {
