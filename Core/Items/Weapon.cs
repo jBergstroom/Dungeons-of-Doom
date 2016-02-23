@@ -32,7 +32,7 @@ namespace Core
         public static int SwordDamage()
         {
             Random rand = new Random();
-            return rand.Next(10, 31);
+            return rand.Next(9, 25);
         }
     }
 }
