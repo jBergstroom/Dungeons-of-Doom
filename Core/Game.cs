@@ -177,6 +177,7 @@ namespace Core
             ConsoleKeyInfo uInput = Console.ReadKey();
                 if (uInput.Key == ConsoleKey.Y)
                 {
+                    Console.WriteLine();
                     Console.WriteLine($"You have picket up {world[player.X, player.Y].ItemInRoom.Name}");
                     world[player.X, player.Y].ItemInRoom.PickUp(player);
                     world[player.X, player.Y].ItemInRoom = null;

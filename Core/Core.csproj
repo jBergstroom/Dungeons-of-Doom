@@ -40,18 +40,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Character.cs" />
+    <Compile Include="Characters\Character.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameObject.cs" />
-    <Compile Include="Gremlin.cs" />
+    <Compile Include="Characters\Gremlin.cs" />
     <Compile Include="ILuggable.cs" />
-    <Compile Include="Item.cs" />
-    <Compile Include="Monster.cs" />
-    <Compile Include="Player.cs" />
-    <Compile Include="Potion.cs" />
+    <Compile Include="Items\Item.cs" />
+    <Compile Include="Characters\Monster.cs" />
+    <Compile Include="Characters\Player.cs" />
+    <Compile Include="Items\Potion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Room.cs" />
-    <Compile Include="Weapon.cs" />
+    <Compile Include="Items\Weapon.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Utils\Utils.csproj">
