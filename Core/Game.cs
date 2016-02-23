@@ -147,7 +147,6 @@ namespace Core
 
         private void AskForMovement()
         {
-            Console.WriteLine("Move!");
             ConsoleKeyInfo keyinfo = Console.ReadKey();
             int x = player.X;
             int y = player.Y;
