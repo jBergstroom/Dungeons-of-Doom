@@ -82,7 +82,7 @@ namespace Dungeons_of_Doom
             Console.WriteLine("Backpack content:");
             foreach (Item item in player.BackPack)
             {
-                Console.Write($"{item.Name} ");
+                Console.Write($"{item.Name}, ");
             }
             Console.WriteLine();
         }
@@ -111,7 +111,7 @@ namespace Dungeons_of_Doom
 
         }
 
-        private void FoundItem()
+        private void FoundItem()//lägg i modifyplayer, override att vi inte ska lägga till potions i backpacken
         {
             Console.WriteLine($"You have found an item. It's a {world[player.X, player.Y].ItemInRoom.Name}. Do you want to pick up? (Y/N)");
             ConsoleKeyInfo uInput = Console.ReadKey();
@@ -172,9 +172,14 @@ namespace Dungeons_of_Doom
                 }
             }
             //Skapa väggar
-            world[0, 7].Wall = true;
-            world[0, 8].Wall = true;
-            world[1, 8].Wall = true;
+            world[1, 1].Wall = true;
+            world[1, 2].Wall = true;
+            world[2, 1].Wall = true;
+            world[2, 2].Wall = true;
+            world[3, 3].Wall = true;
+            world[3, 4].Wall = true;
+            world[4, 5].Wall = true;
+            world[4, 6].Wall = true;
             //Placerar ut items och monster
             int m = 0;
             do
