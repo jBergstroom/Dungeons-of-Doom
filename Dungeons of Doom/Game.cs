@@ -114,14 +114,19 @@ namespace Dungeons_of_Doom
         private void FoundItem()//lägg i modifyplayer, override att vi inte ska lägga till potions i backpacken
         {
             Console.WriteLine($"You have found an item. It's a {world[player.X, player.Y].ItemInRoom.Name}. Do you want to pick up? (Y/N)");
-            ConsoleKeyInfo uInput = Console.ReadKey();
-
-            if (uInput.Key == ConsoleKey.Y)
+            while (true)
             {
-                player.BackPack.Add(world[player.X, player.Y].ItemInRoom);
-                Console.WriteLine($"You have picket up {world[player.X, player.Y].ItemInRoom.Name}");
-                world[player.X, player.Y].ItemInRoom.ModifyPlayer(player);
-                world[player.X, player.Y].ItemInRoom = null;
+            ConsoleKeyInfo uInput = Console.ReadKey();
+                if (uInput.Key == ConsoleKey.Y)
+                {
+                    player.BackPack.Add(world[player.X, player.Y].ItemInRoom);
+                    Console.WriteLine($"You have picket up {world[player.X, player.Y].ItemInRoom.Name}");
+                    world[player.X, player.Y].ItemInRoom.ModifyPlayer(player);
+                    world[player.X, player.Y].ItemInRoom = null;
+                    break;
+                }
+                else if (uInput.Key == ConsoleKey.N)
+                    break;
             }
 
         }
