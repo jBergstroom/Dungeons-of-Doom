@@ -5,10 +5,12 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.IO;
+using Utils;
+using Dungeons_of_Doom;
 
-namespace Dungeons_of_Doom
+namespace Core
 {
-    class Game
+    public class Game
     {
 
         //Ska representera spelflödet

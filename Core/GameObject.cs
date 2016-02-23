@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dungeons_of_Doom
+namespace Core
 {
-    abstract class GameObject
+    public abstract class GameObject
     {
         public GameObject(string name)
         {
