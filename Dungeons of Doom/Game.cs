@@ -80,9 +80,9 @@ namespace Dungeons_of_Doom
 
             Console.WriteLine($"Position: {player.X},{player.Y}");
             Console.WriteLine("Backpack content:");
-            foreach (Item item in player.BackPack)
+            foreach (ILuggable item in player.BackPack)
             {
-                Console.Write($"{item.Name}, ");
+                Console.Write($"{item.Name}({item.Weight} kg), ");
             }
             Console.WriteLine();
         }
@@ -189,14 +189,14 @@ namespace Dungeons_of_Doom
                 int monsterY = RandomUtils.GetRandom(0, WorldHeight);
                 if (m % 3 == 0 && world[monsterX, monsterY].MonsterInRoom == null && world[monsterX, monsterY].Wall == false)
                 {
-                    world[monsterX, monsterY].MonsterInRoom = new Gremlin("Gremlin");
+                    world[monsterX, monsterY].MonsterInRoom = new Gremlin("Gremlin", 5);
                     m++;
                 }
                 else
                 {
                     if (world[monsterX, monsterY].MonsterInRoom == null && world[monsterX, monsterY].Wall == false)
                     {
-                        world[monsterX, monsterY].MonsterInRoom = new Monster("Ogre");
+                        world[monsterX, monsterY].MonsterInRoom = new Monster("Ogre", 190);
                         m++;
                     }
                 }
@@ -232,7 +232,7 @@ namespace Dungeons_of_Doom
 
         private void CreatePlayer()
         {
-            player = new Player("Player", 100, 10);
+            player = new Player("Player", 100, 10, 120);
         }
 
         private void DisplayWorld()
@@ -341,9 +341,8 @@ namespace Dungeons_of_Doom
                 else
                 {
                     Console.WriteLine($"You have killed the {world[player.X, player.Y].MonsterInRoom.Name}!");
+                    player.BackPack.Add(world[player.X, player.Y].MonsterInRoom);
                 }
-
-
             } while (player.Health > 0 && world[player.X, player.Y].MonsterInRoom.Health > 0);
 
             world[player.X, player.Y].MonsterInRoom = null;

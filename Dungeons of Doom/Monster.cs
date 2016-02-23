@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Dungeons_of_Doom
 {
-    class Monster : Character
+    class Monster : Character, ILuggable
     {
         public static int monsterAmount { get; set; }
-        public Monster(string name) : base(name, monsterHealth(), monsterDamage())
+        public Monster(string name, int weight) : base(name, monsterHealth(), monsterDamage(), weight)
         {
             monsterAmount++;
         }

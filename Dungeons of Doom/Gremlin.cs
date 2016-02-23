@@ -8,7 +8,7 @@ namespace Dungeons_of_Doom
 {
     class Gremlin : Monster
     {
-        public Gremlin(string name) : base(name)
+        public Gremlin(string name, int weight) : base(name, weight)
         {
 
         }

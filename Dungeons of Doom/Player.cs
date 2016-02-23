@@ -8,14 +8,14 @@ namespace Dungeons_of_Doom
 {
     sealed class Player : Character
     {
-        public Player(string name, int health, int ad) : base(name, health, ad)
+        public Player(string name, int health, int ad, int weight) : base(name, health, ad, weight)
         {
-            BackPack = new List<Item>();
+            BackPack = new List<ILuggable>();
         }
 
         public int X { get; set; }
         public int Y { get; set; }
-        public List<Item> BackPack { get; set; }
+        public List<ILuggable> BackPack { get; set; }
 
         public override string Hit(Character opponent)
         {
