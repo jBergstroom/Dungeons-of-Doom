@@ -17,7 +17,7 @@ namespace Core
 
         public override void PickUp(Player player)
         {
-            player.AttackDamage += 10;
+            player.AttackDamage += SwordDamage();
             base.PickUp(player);
         }
 
