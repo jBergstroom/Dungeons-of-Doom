@@ -62,14 +62,36 @@ namespace Dungeons_of_Doom
 
             for (int i = 0; i < intro.Length; i++)
             {
+                Console.ForegroundColor = IntroColor(i);
                 Console.WriteLine(intro[i]);
-
                 if (i % 3 == 0)
                 {
-                    Thread.Sleep(1); //temp 1 for debugg, original 200
+                    Thread.Sleep(100); //temp 1 for debugg, original 200
                 }
             }
             Console.ReadKey();
+        }
+
+        private ConsoleColor IntroColor(int i)
+        {
+            if (i < 5)
+            {
+                return ConsoleColor.White;
+            }
+            else if (i < 10 && i > 4)
+            {
+                return ConsoleColor.Gray;
+            }
+            else if (i < 13 && i > 9)
+            {
+                return ConsoleColor.DarkGray;
+            }
+            else if (i == 13)
+            {
+                return ConsoleColor.DarkGreen;
+            }
+            else 
+                return ConsoleColor.DarkRed;
         }
 
         private void DisplayStats()
